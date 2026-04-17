@@ -17,7 +17,7 @@
 \i 04_menu_functions.sql
 
 -- 6. Load Stubs for other team members (for testing)
-\i stubs.sql
+\i 06_stubs.sql
 
 \echo '------------------------------------------------------------'
 \echo 'All modules loaded successfully!'

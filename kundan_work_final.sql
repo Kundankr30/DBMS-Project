@@ -25,7 +25,7 @@ RELATIONAL SCHEMA:
 \i 03_insert_sample_data.sql
 \i 05_venue_management.sql
 \i 04_menu_functions.sql
-\i stubs.sql
+\i 06_stubs.sql
 
 \echo '------------------------------------------------------------'
 \echo 'Kundan Kumar (Roll 6) - Modules loaded successfully!'
