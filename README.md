@@ -39,61 +39,73 @@ The project is modularized into the following SQL scripts:
 - `update_venue(id, name, loc, cap, fac)`: Modify venue details.
 - `delete_venue(id)`: Safely remove a venue (checks for active events).
 - `check_venue_capacity(id)`: Analyze venue utilization and capacity.
-- `search_venues_by_name(pattern)`: Search for venues using text patterns.
 
 ### 2. Event Management
-- `add_event(...)`: Create a new cultural event.
-- `view_all_events()`: List all events.
-- `update_event(id, ...)`: Update event details.
-- `cancel_event(id)`: Mark an event as cancelled.
-- `search_events_by_type(type)`: Filter events by category (dance, music, etc.).
-- `search_events_by_date(start, end)`: Find events within a date range.
-- `view_events_by_venue(vid)`: List all events scheduled at a specific venue.
+- `add_event(...)`, `view_all_events()`, `cancel_event(id)`.
 
 ### 3. Participant & Registration
-- `register_participant(...)`: Add a new participant.
-- `view_participants()`: View all student profiles.
-- `register_for_event(pid, eid)`: Link a participant to an event.
-- `view_registrations()`: Show all event sign-ups.
-- `mark_attendance(rid, status)`: Update participant attendance (Present/Absent).
-- `check_event_registration_count(eid)`: Monitor event popularity.
+- `register_participant(...)`, `register_for_event(pid, eid)`, `mark_attendance(rid, status)`.
 
 ### 4. Performance & Awards
-- `create_performance(rid)`: Create a performance entry for a participant.
-- `assign_judge_score(pid, jid, score, comment)`: Record judge evaluations.
-- `show_leaderboard(eid)`: Calculate rankings for a specific event.
-- `create_award(...)`: Setup award categories for an event.
-- `assign_award_winner(aid, rid)`: Officially link a winner to an award.
-- `view_award_winners()`: Show the list of all winners across categories.
-
-### 5. Reports & Analytics
-- `event_participation_report()`: Summary of participants per event.
-- `registration_summary()`: Statistics on total sign-ups and attendance.
-- `venue_utilization_report()`: Efficiency analysis of all venues.
-- `top_performers_report()`: List of highest-scoring participants.
-- `awards_summary()`: Overview of all distributed prizes and awards.
+- `create_performance(rid)`, `assign_judge_score(...)`, `show_leaderboard(eid)`.
 
 ---
 
-## 🚀 How to Run
+## 🚀 How to Run (Direct Command)
 
 ### 1. Connect and Initialize
-Run this command to connect to the database and initialize all tables, data, and functions:
 ```bash
 psql "postgresql://postgres.lokciwccurorpeolozez:dbmsgroup2%40123@aws-1-ap-south-1.pooler.supabase.com:6543/postgres" -f master.sql
 ```
 
 ### 2. Start the Interactive Menu
-Once the tables are created, launch the menu system:
 ```bash
 psql "postgresql://postgres.lokciwccurorpeolozez:dbmsgroup2%40123@aws-1-ap-south-1.pooler.supabase.com:6543/postgres" -f menu.sql
 ```
 
 ---
 
+## 📖 Full Testing Tutorial (Inside psql)
+
+If you are already inside the `psql` console, follow these steps for a complete test:
+
+### Step 1: Initialize the Database
+Load the master script to set up all tables and functions:
+```sql
+\i master.sql
+```
+
+### Step 2: Launch the Menu
+Start the interactive portal:
+```sql
+\i menu.sql
+```
+
+### Step 3: Test Venue Management
+1.  When prompted `Enter option:`, type **`1`** and press Enter.
+2.  You are now in the **Venue Management** submenu.
+3.  Type **`2`** to **View All Venues**. You should see the sample data (e.g., Main Auditorium).
+4.  Type **`1`** to **Add Venue**. Follow the prompts:
+    *   `Name:` Music Hall
+    *   `Location:` Block B
+    *   `Capacity:` 150
+    *   `Facilities:` AC, Sound System
+5.  Type **`5`** to **Check Capacity**. Enter the ID of the venue you just created to see its status.
+6.  Type **`0`** to return to the **Main Menu**.
+
+### Step 4: Test Integration (Stubs)
+1.  From the Main Menu, type **`2`** for **Event Management**.
+2.  Type **`2`** to **View All Events**.
+3.  *Note:* This calls a stub function to demonstrate that the menu navigation logic is correctly linked.
+
+### Step 5: Exit the System
+1.  Type **`0`** in the Main Menu.
+2.  The system will display: `Thank you for using Events Portal - Cultural.`
+
+---
+
 ## ✨ Features Implemented
 - **Automated Validation:** Constraints ensure valid event times and positive venue capacities.
-- **Manual Integrity Checks:** Custom functions prevent deletion of venues that have active scheduled events.
-- **Efficient Searching:** Optimized indexes for date-based and venue-based lookups.
+- **Manual Integrity Checks:** Custom functions prevent deletion of venues with active scheduled events.
 - **Interactive UI:** Text-based menu system using `\prompt` and `\echo`.
-- **No Cascade Policy:** Follows requirements to avoid `ON DELETE CASCADE` using manual data integrity logic.
+- **No Cascade Policy:** Strictly avoids `ON DELETE CASCADE` per requirements.
