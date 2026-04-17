@@ -51,6 +51,8 @@ The project is modularized into the following SQL scripts:
 
 ---
 
+> ⚠️ **IMPORTANT:** If the database tables and functions are already created, **DO NOT** run `master.sql` again. Running the initialization script will reset the schema and delete all existing data. You can skip directly to starting the **Interactive Menu**.
+
 ## 🚀 How to Run (Direct Command)
 
 ### 1. Connect and Initialize
