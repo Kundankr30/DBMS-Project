@@ -1,6 +1,4 @@
--- Stubs for other team members' functions
--- This allows Kundan's menu system to be tested fully
-
+--completed
 -- Kundan (Event Management)
 CREATE OR REPLACE FUNCTION add_event(p_name TEXT, p_type TEXT, p_date DATE, p_start TIME, p_end TIME, p_venue INTEGER, p_max INTEGER, p_desc TEXT) RETURNS INTEGER AS $$ BEGIN RETURN 1; END; $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION view_all_events() RETURNS TABLE(id INTEGER, name TEXT) AS $$ BEGIN RETURN QUERY SELECT event_id, event_name FROM Events; END; $$ LANGUAGE plpgsql;
@@ -23,6 +21,11 @@ CREATE OR REPLACE FUNCTION mark_attendance(p_id INTEGER, p_status TEXT) RETURNS 
 CREATE OR REPLACE FUNCTION check_event_registration_count(p_eid INTEGER) RETURNS INTEGER AS $$ BEGIN RETURN 0; END; $$ LANGUAGE plpgsql;
 
 
+--upload already created function like participant_mangagment.sql  --so that ai remains in limit
+-- upload 3 files
+-- schema.sql
+--participant_mangagment.sql 
+--and function name given below
 
 --incomplete
 -- Smruti Ranjan Nayak    -- create schedule_calender.sql --- inside that write below functions   --upload schema and below function to ai for help  
