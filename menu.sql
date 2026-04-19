@@ -12,9 +12,7 @@
 \echo '  8. Reports & Analytics'
 \echo '  0. Exit'
 \echo '============================================================'
-
 \prompt 'Enter option: ' mainopt
-
 SELECT
     CASE WHEN :'mainopt' = '1' THEN 'true' ELSE 'false' END AS mainopt_is_1,
     CASE WHEN :'mainopt' = '2' THEN 'true' ELSE 'false' END AS mainopt_is_2,
@@ -26,12 +24,7 @@ SELECT
     CASE WHEN :'mainopt' = '8' THEN 'true' ELSE 'false' END AS mainopt_is_8,
     CASE WHEN :'mainopt' = '0' THEN 'true' ELSE 'false' END AS mainopt_is_0
 \gset
-
--- ===============================
--- 1. VENUE MANAGEMENT (WORKING)
--- ===============================
 \if :mainopt_is_1
-
 \echo ''
 \echo '========== VENUE MANAGEMENT =========='
 \echo '1. Add Venue'
@@ -41,9 +34,7 @@ SELECT
 \echo '5. Check Capacity'
 \echo '0. Back'
 \echo '====================================='
-
 \prompt 'Enter choice: ' vopt
-
 SELECT
     CASE WHEN :'vopt' = '1' THEN 'true' ELSE 'false' END AS vopt_is_1,
     CASE WHEN :'vopt' = '2' THEN 'true' ELSE 'false' END AS vopt_is_2,
@@ -51,7 +42,6 @@ SELECT
     CASE WHEN :'vopt' = '4' THEN 'true' ELSE 'false' END AS vopt_is_4,
     CASE WHEN :'vopt' = '5' THEN 'true' ELSE 'false' END AS vopt_is_5
 \gset
-
 \if :vopt_is_1
 \prompt 'Name: ' name
 \prompt 'Location: ' location
@@ -59,44 +49,24 @@ SELECT
 \prompt 'Facilities: ' facilities
 SELECT add_venue(:'name', :'location', CAST(:'capacity' AS INTEGER), :'facilities');
 \endif
-
 \if :vopt_is_2
 SELECT * FROM view_venues();
 \endif
-
 \if :vopt_is_3
-\prompt 'Venue ID: ' id
-\prompt 'New Name: ' name
-\prompt 'New Location: ' location
-\prompt 'New Capacity: ' capacity
-\prompt 'New Facilities: ' facilities
-SELECT update_venue(
-    CAST(:'id' AS INTEGER),
-    NULLIF(:'name',''),
-    NULLIF(:'location',''),
-    CAST(NULLIF(:'capacity','') AS INTEGER),
-    NULLIF(:'facilities','')
-);
+\prompt 'Venue ID to update: ' id
+\prompt 'New Venue Name: ' name
+SELECT update_venue(CAST(:'id' AS INTEGER), :'name');
 \endif
-
 \if :vopt_is_4
-\prompt 'Venue ID: ' id
+\prompt 'Venue ID to delete: ' id
 SELECT delete_venue(CAST(:'id' AS INTEGER));
 \endif
-
 \if :vopt_is_5
 \prompt 'Venue ID: ' id
-SELECT check_venue_capacity(CAST(:'id' AS INTEGER));
+SELECT * FROM check_venue_capacity(CAST(:'id' AS INTEGER));
 \endif
-
 \endif
-
-
--- ===============================
--- 2. EVENT MANAGEMENT
--- ===============================
 \if :mainopt_is_2
-
 \echo ''
 \echo '========== EVENT MANAGEMENT =========='
 \echo '1. Add Event'
@@ -108,9 +78,7 @@ SELECT check_venue_capacity(CAST(:'id' AS INTEGER));
 \echo '7. View by Venue'
 \echo '0. Back'
 \echo '====================================='
-
 \prompt 'Enter choice: ' eopt
-
 SELECT
     CASE WHEN :'eopt' = '1' THEN 'true' ELSE 'false' END AS eopt_is_1,
     CASE WHEN :'eopt' = '2' THEN 'true' ELSE 'false' END AS eopt_is_2,
@@ -120,43 +88,44 @@ SELECT
     CASE WHEN :'eopt' = '6' THEN 'true' ELSE 'false' END AS eopt_is_6,
     CASE WHEN :'eopt' = '7' THEN 'true' ELSE 'false' END AS eopt_is_7
 \gset
-
 \if :eopt_is_1
-SELECT add_event(...);
+\prompt 'Event Name: ' ename
+\prompt 'Event Type: ' etype
+\prompt 'Date (YYYY-MM-DD): ' edate
+\prompt 'Start Time (HH:MM): ' estart
+\prompt 'End Time (HH:MM): ' eend
+\prompt 'Venue ID: ' evenue
+\prompt 'Max Participants: ' emax
+\prompt 'Description: ' edesc
+SELECT add_event(:'ename', :'etype', CAST(:'edate' AS DATE), CAST(:'estart' AS TIME), CAST(:'eend' AS TIME), CAST(:'evenue' AS INTEGER), CAST(:'emax' AS INTEGER), :'edesc');
 \endif
-
 \if :eopt_is_2
 SELECT * FROM view_all_events();
 \endif
-
 \if :eopt_is_3
-SELECT update_event(...);
+\prompt 'Event ID to update: ' eid
+\prompt 'New Event Name: ' ename
+SELECT update_event(CAST(:'eid' AS INTEGER), :'ename');
 \endif
-
 \if :eopt_is_4
-SELECT cancel_event(...);
+\prompt 'Event ID to cancel: ' eid
+SELECT cancel_event(CAST(:'eid' AS INTEGER));
 \endif
-
 \if :eopt_is_5
-SELECT * FROM search_events_by_type('dance');
+\prompt 'Enter Event Type: ' etype
+SELECT * FROM search_events_by_type(:'etype');
 \endif
-
 \if :eopt_is_6
-SELECT * FROM search_events_by_date('2026-05-01','2026-05-31');
+\prompt 'Start Date (YYYY-MM-DD): ' sdate
+\prompt 'End Date (YYYY-MM-DD): ' edate
+SELECT * FROM search_events_by_date(CAST(:'sdate' AS DATE), CAST(:'edate' AS DATE));
 \endif
-
 \if :eopt_is_7
-SELECT * FROM view_events_by_venue(1);
+\prompt 'Venue ID: ' vid
+SELECT * FROM view_events_by_venue(CAST(:'vid' AS INTEGER));
 \endif
-
 \endif
-
-
--- ===============================
--- 3. PARTICIPANT MANAGEMENT
--- ===============================
 \if :mainopt_is_3
-
 \echo ''
 \echo '====== PARTICIPANT MANAGEMENT ======'
 \echo '1. Register Participant'
@@ -166,9 +135,7 @@ SELECT * FROM view_events_by_venue(1);
 \echo '5. Delete Participant'
 \echo '0. Back'
 \echo '==================================='
-
 \prompt 'Enter choice: ' popt
-
 SELECT
     CASE WHEN :'popt' = '1' THEN 'true' ELSE 'false' END AS popt_is_1,
     CASE WHEN :'popt' = '2' THEN 'true' ELSE 'false' END AS popt_is_2,
@@ -176,35 +143,30 @@ SELECT
     CASE WHEN :'popt' = '4' THEN 'true' ELSE 'false' END AS popt_is_4,
     CASE WHEN :'popt' = '5' THEN 'true' ELSE 'false' END AS popt_is_5
 \gset
-
 \if :popt_is_1
-SELECT register_participant(...);
+\prompt 'Name: ' pname
+\prompt 'Email: ' pemail
+\prompt 'Year (1-5): ' pyear
+SELECT register_participant(:'pname', :'pemail', CAST(:'pyear' AS INTEGER));
 \endif
-
 \if :popt_is_2
 SELECT * FROM view_participants();
 \endif
-
 \if :popt_is_3
-SELECT update_participant(...);
+\prompt 'Participant ID: ' pid
+\prompt 'New Name: ' pname
+SELECT update_participant(CAST(:'pid' AS INTEGER), :'pname');
 \endif
-
 \if :popt_is_4
-SELECT * FROM search_participant_by_email('test@gmail.com');
+\prompt 'Enter Email: ' pemail
+SELECT * FROM search_participant_by_email(:'pemail');
 \endif
-
 \if :popt_is_5
-SELECT delete_participant(...);
+\prompt 'Participant ID: ' pid
+SELECT delete_participant(CAST(:'pid' AS INTEGER));
 \endif
-
 \endif
-
-
--- ===============================
--- 4. REGISTRATION MANAGEMENT
--- ===============================
 \if :mainopt_is_4
-
 \echo ''
 \echo '====== REGISTRATION MANAGEMENT ======'
 \echo '1. Register for Event'
@@ -215,9 +177,7 @@ SELECT delete_participant(...);
 \echo '6. Registration Count'
 \echo '0. Back'
 \echo '===================================='
-
 \prompt 'Enter choice: ' ropt
-
 SELECT
     CASE WHEN :'ropt' = '1' THEN 'true' ELSE 'false' END AS ropt_is_1,
     CASE WHEN :'ropt' = '2' THEN 'true' ELSE 'false' END AS ropt_is_2,
@@ -226,39 +186,33 @@ SELECT
     CASE WHEN :'ropt' = '5' THEN 'true' ELSE 'false' END AS ropt_is_5,
     CASE WHEN :'ropt' = '6' THEN 'true' ELSE 'false' END AS ropt_is_6
 \gset
-
 \if :ropt_is_1
-SELECT register_for_event(...);
+\prompt 'Participant ID: ' pid
+\prompt 'Event ID: ' eid
+SELECT register_for_event(CAST(:'pid' AS INTEGER), CAST(:'eid' AS INTEGER));
 \endif
-
 \if :ropt_is_2
 SELECT * FROM view_registrations();
 \endif
-
 \if :ropt_is_3
-SELECT * FROM view_registrations_by_event(1);
+\prompt 'Event ID: ' eid
+SELECT * FROM view_registrations_by_event(CAST(:'eid' AS INTEGER));
 \endif
-
 \if :ropt_is_4
-SELECT mark_attendance(...);
+\prompt 'Registration ID: ' rid
+\prompt 'Status (present/absent): ' rstatus
+SELECT mark_attendance(CAST(:'rid' AS INTEGER), :'rstatus');
 \endif
-
 \if :ropt_is_5
-SELECT cancel_registration(...);
+\prompt 'Registration ID: ' rid
+SELECT cancel_registration(CAST(:'rid' AS INTEGER));
 \endif
-
 \if :ropt_is_6
-SELECT check_event_registration_count(1);
+\prompt 'Event ID: ' eid
+SELECT check_event_registration_count(CAST(:'eid' AS INTEGER));
 \endif
-
 \endif
-
-
--- ===============================
--- 5. SCHEDULE & CALENDAR
--- ===============================
 \if :mainopt_is_5
-
 \echo ''
 \echo '====== SCHEDULE & CALENDAR ======'
 \echo '1. Full Calendar'
@@ -268,9 +222,7 @@ SELECT check_event_registration_count(1);
 \echo '5. Detect Conflicts'
 \echo '0. Back'
 \echo '================================'
-
 \prompt 'Enter choice: ' sopt
-
 SELECT
     CASE WHEN :'sopt' = '1' THEN 'true' ELSE 'false' END AS sopt_is_1,
     CASE WHEN :'sopt' = '2' THEN 'true' ELSE 'false' END AS sopt_is_2,
@@ -278,35 +230,27 @@ SELECT
     CASE WHEN :'sopt' = '4' THEN 'true' ELSE 'false' END AS sopt_is_4,
     CASE WHEN :'sopt' = '5' THEN 'true' ELSE 'false' END AS sopt_is_5
 \gset
-
 \if :sopt_is_1
 SELECT * FROM view_full_calendar();
 \endif
-
 \if :sopt_is_2
-SELECT * FROM view_events_by_month(5,2026);
+\prompt 'Month (1-12): ' smonth
+\prompt 'Year (YYYY): ' syear
+SELECT * FROM view_events_by_month(CAST(:'smonth' AS INTEGER), CAST(:'syear' AS INTEGER));
 \endif
-
 \if :sopt_is_3
 SELECT * FROM view_upcoming_events();
 \endif
-
 \if :sopt_is_4
-SELECT check_venue_availability(...);
+\prompt 'Venue ID: ' vid
+\prompt 'Date (YYYY-MM-DD): ' sdate
+SELECT check_venue_availability(CAST(:'vid' AS INTEGER), CAST(:'sdate' AS DATE));
 \endif
-
 \if :sopt_is_5
 SELECT detect_schedule_conflicts();
 \endif
-
 \endif
-
-
--- ===============================
--- 6. PERFORMANCE
--- ===============================
 \if :mainopt_is_6
-
 \echo ''
 \echo '====== PERFORMANCE ======'
 \echo '1. Create Performance'
@@ -316,9 +260,7 @@ SELECT detect_schedule_conflicts();
 \echo '5. Leaderboard'
 \echo '6. Statistics'
 \echo '0. Back'
-
 \prompt 'Enter choice: ' pfopt
-
 SELECT
     CASE WHEN :'pfopt' = '1' THEN 'true' ELSE 'false' END AS pfopt_is_1,
     CASE WHEN :'pfopt' = '2' THEN 'true' ELSE 'false' END AS pfopt_is_2,
@@ -327,39 +269,36 @@ SELECT
     CASE WHEN :'pfopt' = '5' THEN 'true' ELSE 'false' END AS pfopt_is_5,
     CASE WHEN :'pfopt' = '6' THEN 'true' ELSE 'false' END AS pfopt_is_6
 \gset
-
 \if :pfopt_is_1
-SELECT create_performance(...);
+\prompt 'Registration ID: ' rid
+SELECT create_performance(CAST(:'rid' AS INTEGER));
 \endif
-
 \if :pfopt_is_2
-SELECT assign_judge_score(...);
+\prompt 'Performance ID: ' pid
+\prompt 'Judge ID: ' jid
+\prompt 'Score (0-100): ' pscore
+\prompt 'Comment: ' pcomment
+SELECT assign_judge_score(CAST(:'pid' AS INTEGER), CAST(:'jid' AS INTEGER), CAST(:'pscore' AS DECIMAL), :'pcomment');
 \endif
-
 \if :pfopt_is_3
-SELECT update_judge_score(...);
+\prompt 'Score ID (Performance_Judge ID): ' pjid
+\prompt 'New Score: ' pscore
+SELECT update_judge_score(CAST(:'pjid' AS INTEGER), CAST(:'pscore' AS DECIMAL));
 \endif
-
 \if :pfopt_is_4
-SELECT * FROM view_scores_by_event(1);
+\prompt 'Event ID: ' eid
+SELECT * FROM view_scores_by_event(CAST(:'eid' AS INTEGER));
 \endif
-
 \if :pfopt_is_5
-SELECT show_leaderboard(1);
+\prompt 'Event ID: ' eid
+SELECT * FROM show_leaderboard(CAST(:'eid' AS INTEGER));
 \endif
-
 \if :pfopt_is_6
-SELECT performance_statistics(1);
+\prompt 'Event ID: ' eid
+SELECT performance_statistics(CAST(:'eid' AS INTEGER));
 \endif
-
 \endif
-
-
--- ===============================
--- 7. AWARDS
--- ===============================
 \if :mainopt_is_7
-
 \echo ''
 \echo '====== AWARDS ======'
 \echo '1. Create Award'
@@ -368,9 +307,7 @@ SELECT performance_statistics(1);
 \echo '4. Update Award'
 \echo '5. Report'
 \echo '0. Back'
-
 \prompt 'Enter choice: ' aopt
-
 SELECT
     CASE WHEN :'aopt' = '1' THEN 'true' ELSE 'false' END AS aopt_is_1,
     CASE WHEN :'aopt' = '2' THEN 'true' ELSE 'false' END AS aopt_is_2,
@@ -378,35 +315,33 @@ SELECT
     CASE WHEN :'aopt' = '4' THEN 'true' ELSE 'false' END AS aopt_is_4,
     CASE WHEN :'aopt' = '5' THEN 'true' ELSE 'false' END AS aopt_is_5
 \gset
-
 \if :aopt_is_1
-SELECT create_award(...);
+\prompt 'Event ID: ' eid
+\prompt 'Award Name: ' aname
+\prompt 'Position: ' apos
+\prompt 'Prize Amount: ' aamt
+SELECT create_award(CAST(:'eid' AS INTEGER), :'aname', CAST(:'apos' AS INTEGER), CAST(:'aamt' AS DECIMAL));
 \endif
-
 \if :aopt_is_2
-SELECT * FROM view_awards_by_event(1);
+\prompt 'Event ID: ' eid
+SELECT * FROM view_awards_by_event(CAST(:'eid' AS INTEGER));
 \endif
-
 \if :aopt_is_3
-SELECT assign_award_winner(...);
+\prompt 'Award ID: ' aid
+\prompt 'Registration ID: ' rid
+SELECT assign_award_winner(CAST(:'aid' AS INTEGER), CAST(:'rid' AS INTEGER));
 \endif
-
 \if :aopt_is_4
-SELECT update_award(...);
+\prompt 'Award ID: ' aid
+\prompt 'New Name: ' aname
+SELECT update_award_details(CAST(:'aid' AS INTEGER), :'aname');
 \endif
-
 \if :aopt_is_5
-SELECT generate_award_report(1);
+\prompt 'Event ID: ' eid
+SELECT generate_award_report(CAST(:'eid' AS INTEGER));
 \endif
-
 \endif
-
-
--- ===============================
--- 8. REPORTS
--- ===============================
 \if :mainopt_is_8
-
 \echo ''
 \echo '====== REPORTS ======'
 \echo '1. Participation Report'
@@ -418,9 +353,7 @@ SELECT generate_award_report(1);
 \echo '7. Participant Statistics'
 \echo '8. Awards Summary'
 \echo '0. Back'
-
 \prompt 'Enter choice: ' rptopt
-
 SELECT
     CASE WHEN :'rptopt' = '1' THEN 'true' ELSE 'false' END AS rptopt_is_1,
     CASE WHEN :'rptopt' = '2' THEN 'true' ELSE 'false' END AS rptopt_is_2,
@@ -431,45 +364,31 @@ SELECT
     CASE WHEN :'rptopt' = '7' THEN 'true' ELSE 'false' END AS rptopt_is_7,
     CASE WHEN :'rptopt' = '8' THEN 'true' ELSE 'false' END AS rptopt_is_8
 \gset
-
 \if :rptopt_is_1
 SELECT * FROM event_participation_report();
 \endif
-
 \if :rptopt_is_2
 SELECT * FROM registration_summary();
 \endif
-
 \if :rptopt_is_3
 SELECT * FROM attendance_report();
 \endif
-
 \if :rptopt_is_4
 SELECT * FROM venue_utilization_report();
 \endif
-
 \if :rptopt_is_5
 SELECT * FROM top_performers_report();
 \endif
-
 \if :rptopt_is_6
 SELECT * FROM event_statistics();
 \endif
-
 \if :rptopt_is_7
 SELECT * FROM participant_statistics();
 \endif
-
 \if :rptopt_is_8
 SELECT * FROM awards_summary();
 \endif
-
 \endif
-
-
--- ===============================
--- EXIT
--- ===============================
 \if :mainopt_is_0
 \echo 'Thank you for using Events Portal - Cultural.'
 \endif

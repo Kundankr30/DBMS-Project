@@ -10,7 +10,6 @@ The project is modularized into the following SQL scripts:
 - `01_create_schema.sql`: Table structures and relational constraints.
 - `02_create_indexes.sql`: Performance optimization.
 - `03_insert_sample_data.sql`: Realistic test data for demonstration.
-- `04_menu_functions.sql`: Backend logic for the menu system.
 - `05_venue_management.sql`: Procedures for managing cultural venues.
 - `06_stubs.sql`: Integration placeholders for all project functions.
 - `menu.sql`: The main interactive psql interface.

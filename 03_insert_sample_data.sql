@@ -1,8 +1,3 @@
--- Events Portal - Cultural
--- DBMS Lab Project 2025-26 (Semester 4) - Group 2
--- Roll 6: Kundan Kumar - Sample Data Insertion
-
--- Insert Venues (Sample Data)
 INSERT INTO Venues (venue_name, location, capacity, facilities) VALUES
 ('Main Auditorium', 'Campus Block A, Ground Floor', 500, 'Stage, Sound System, Lighting, Projector'),
 ('Open Air Theatre', 'Campus Central Garden', 800, 'Natural Setting, Sound System, Stage'),
@@ -12,8 +7,6 @@ INSERT INTO Venues (venue_name, location, capacity, facilities) VALUES
 ('Art Gallery', 'Library Block, Ground Floor', 200, 'Display Boards, Lighting, AC'),
 ('Conference Room', 'Admin Block, 3rd Floor', 50, 'Projector, AC, Video Conferencing'),
 ('Sports Complex Hall', 'Sports Block, Indoor Arena', 300, 'Flexible Seating, Sound System');
-
--- Insert Events (Cultural Categories: dance, music, drama, literary, fashion, comedy, fine_arts, celebration, other)
 INSERT INTO Events (event_name, event_type, event_date, start_time, end_time, venue_id, max_participants, description, status) VALUES
 ('Classical Dance Competition', 'dance', '2025-04-25', '14:00:00', '18:00:00', 4, 20, 'Bharatanatyam, Kathak, Odissi classical dance forms', 'active'),
 ('Battle of Bands', 'music', '2025-04-26', '17:00:00', '22:00:00', 1, 15, 'Rock and pop band competition', 'active'),
@@ -27,31 +20,27 @@ INSERT INTO Events (event_name, event_type, event_date, start_time, end_time, ve
 ('Instrumental Music Concert', 'music', '2025-04-27', '18:00:00', '21:00:00', 5, 8, 'Solo instrumental performances', 'active'),
 ('Street Play Competition', 'drama', '2025-04-28', '16:00:00', '20:00:00', 2, 12, 'Nukkad Natak street theatre', 'active'),
 ('Photography Contest', 'fine_arts', '2025-04-29', '09:00:00', '17:00:00', 6, 40, 'Digital and film photography competition', 'active');
-
--- Insert Participants (updated schema with first_name, last_name, phone, college, department)
-INSERT INTO Participants (first_name, last_name, email, phone, college, department, year_of_study) VALUES
-('Rahul', 'Sharma', 'rahul.sharma@email.com', '9876543210', 'KIIT University', 'Computer Science', 2),
-('Priya', 'Patel', 'priya.patel@email.com', '9876543211', 'KIIT University', 'Electronics', 3),
-('Amit', 'Kumar', 'amit.kumar@email.com', '9876543212', 'KIIT University', 'Mechanical', 1),
-('Sneha', 'Reddy', 'sneha.reddy@email.com', '9876543213', 'KIIT University', 'Civil', 4),
-('Vikram', 'Singh', 'vikram.singh@email.com', '9876543214', 'KIIT University', 'Computer Science', 2),
-('Ananya', 'Das', 'ananya.das@email.com', '9876543215', 'KIIT University', 'Electrical', 3),
-('Rohan', 'Mehta', 'rohan.mehta@email.com', '9876543216', 'KIIT University', 'IT', 1),
-('Divya', 'Nair', 'divya.nair@email.com', '9876543217', 'KIIT University', 'Computer Science', 4),
-('Karan', 'Gupta', 'karan.gupta@email.com', '9876543218', 'KIIT University', 'ECE', 2),
-('Neha', 'Sharma', 'neha.sharma@email.com', '9876543219', 'KIIT University', 'MBA', 3),
-('Siddharth', 'Verma', 'siddharth.verma@email.com', '9876543220', 'KIIT University', 'Mechanical', 1),
-('Tanvi', 'Iyer', 'tanvi.iyer@email.com', '9876543221', 'KIIT University', 'Computer Science', 2),
-('Arjun', 'Rao', 'arjun.rao@email.com', '9876543222', 'KIIT University', 'Chemical', 4),
-('Pooja', 'Malhotra', 'pooja.malhotra@email.com', '9876543223', 'KIIT University', 'Biotechnology', 3),
-('Aditya', 'Chopra', 'aditya.chopra@email.com', '9876543224', 'KIIT University', 'Physics', 1),
-('Meera', 'Kapoor', 'meera.kapoor@email.com', '9876543225', 'KIIT University', 'Mathematics', 2),
-('Nikhil', 'Jain', 'nikhil.jain@email.com', '9876543226', 'KIIT University', 'Chemistry', 3),
-('Isha', 'Bose', 'isha.bose@email.com', '9876543227', 'KIIT University', 'English', 4),
-('Tarun', 'Mishra', 'tarun.mishra@email.com', '9876543228', 'KIIT University', 'History', 2),
-('Kavya', 'Krishnan', 'kavya.krishnan@email.com', '9876543229', 'KIIT University', 'Computer Science', 1);
-
--- Insert Judges (simplified schema)
+INSERT INTO Participants (name, email, phone, college, department, year_of_study) VALUES
+('Rahul Sharma', 'rahul.sharma@email.com', '9876543210', 'KIIT University', 'Computer Science', 2),
+('Priya Patel', 'priya.patel@email.com', '9876543211', 'KIIT University', 'Electronics', 3),
+('Amit Kumar', 'amit.kumar@email.com', '9876543212', 'KIIT University', 'Mechanical', 1),
+('Sneha Reddy', 'sneha.reddy@email.com', '9876543213', 'KIIT University', 'Civil', 4),
+('Vikram Singh', 'vikram.singh@email.com', '9876543214', 'KIIT University', 'Computer Science', 2),
+('Ananya Das', 'ananya.das@email.com', '9876543215', 'KIIT University', 'Electrical', 3),
+('Rohan Mehta', 'rohan.mehta@email.com', '9876543216', 'KIIT University', 'IT', 1),
+('Divya Nair', 'divya.nair@email.com', '9876543217', 'KIIT University', 'Computer Science', 4),
+('Karan Gupta', 'karan.gupta@email.com', '9876543218', 'KIIT University', 'ECE', 2),
+('Neha Sharma', 'neha.sharma@email.com', '9876543219', 'KIIT University', 'MBA', 3),
+('Siddharth Verma', 'siddharth.verma@email.com', '9876543220', 'KIIT University', 'Mechanical', 1),
+('Tanvi Iyer', 'tanvi.iyer@email.com', '9876543221', 'KIIT University', 'Computer Science', 2),
+('Arjun Rao', 'arjun.rao@email.com', '9876543222', 'KIIT University', 'Chemical', 4),
+('Pooja Malhotra', 'pooja.malhotra@email.com', '9876543223', 'KIIT University', 'Biotechnology', 3),
+('Aditya Chopra', 'aditya.chopra@email.com', '9876543224', 'KIIT University', 'Physics', 1),
+('Meera Kapoor', 'meera.kapoor@email.com', '9876543225', 'KIIT University', 'Mathematics', 2),
+('Nikhil Jain', 'nikhil.jain@email.com', '9876543226', 'KIIT University', 'Chemistry', 3),
+('Isha Bose', 'isha.bose@email.com', '9876543227', 'KIIT University', 'English', 4),
+('Tarun Mishra', 'tarun.mishra@email.com', '9876543228', 'KIIT University', 'History', 2),
+('Kavya Krishnan', 'kavya.krishnan@email.com', '9876543229', 'KIIT University', 'Computer Science', 1);
 INSERT INTO Judges (judge_name, expertise, email) VALUES
 ('Dr. Rajesh Iyer', 'Classical Dance, Bharatanatyam', 'rajesh.iyer@arts.com'),
 ('Prof. Meena Krishnan', 'Indian Classical Music, Vocal', 'meena.krishnan@arts.com'),
@@ -63,8 +52,6 @@ INSERT INTO Judges (judge_name, expertise, email) VALUES
 ('Dr. Lakshmi Nair', 'Debate, Public Speaking', 'lakshmi.nair@debate.com'),
 ('Shri Vikram Seth', 'Instrumental Music', 'vikram.seth@music.com'),
 ('Ms. Deepa Rajan', 'Street Theatre', 'deepa.rajan@theatre.com');
-
--- Insert Registrations (attendance_status: registered, present, absent)
 INSERT INTO Registrations (participant_id, event_id, attendance_status) VALUES
 (1, 1, 'present'),
 (2, 1, 'present'),
@@ -86,8 +73,6 @@ INSERT INTO Registrations (participant_id, event_id, attendance_status) VALUES
 (18, 9, 'present'),
 (19, 9, 'present'),
 (20, 10, 'registered');
-
--- Insert Performances (simplified schema with UNIQUE on registration_id)
 INSERT INTO Performances (registration_id, performance_date) VALUES
 (1, '2025-04-25 14:30:00'),
 (2, '2025-04-25 15:00:00'),
@@ -101,8 +86,6 @@ INSERT INTO Performances (registration_id, performance_date) VALUES
 (16, '2025-04-29 12:00:00'),
 (18, '2025-04-25 10:30:00'),
 (19, '2025-04-25 11:30:00');
-
--- Insert Performance_Judges (score between 0 and 100)
 INSERT INTO Performance_Judges (performance_id, judge_id, score, comments) VALUES
 (1, 1, 85.50, 'Excellent footwork and expressions'),
 (1, 2, 82.00, 'Good synchronization with music'),
@@ -123,8 +106,6 @@ INSERT INTO Performance_Judges (performance_id, judge_id, score, comments) VALUE
 (10, 7, 89.00, 'Lovely color palette and composition'),
 (11, 8, 90.00, 'Strong arguments, good rebuttal'),
 (12, 8, 88.00, 'Excellent research and presentation');
-
--- Insert Awards (position is now INTEGER > 0)
 INSERT INTO Awards (award_name, event_id, position, prize_amount) VALUES
 ('Best Classical Dancer', 1, 1, 5000.00),
 ('Classical Dance Runner Up', 1, 2, 3000.00),
@@ -134,8 +115,6 @@ INSERT INTO Awards (award_name, event_id, position, prize_amount) VALUES
 ('Best Comedian', 6, 1, 3000.00),
 ('Best Painter', 7, 1, 4000.00),
 ('Best Debater', 9, 1, 3500.00);
-
--- Insert Award_Winners (winner_id instead of award_winner_id)
 INSERT INTO Award_Winners (award_id, registration_id) VALUES
 (1, 2),
 (2, 1),
@@ -144,6 +123,5 @@ INSERT INTO Award_Winners (award_id, registration_id) VALUES
 (6, 13),
 (7, 15),
 (8, 18);
-
 \echo 'Sample data inserted successfully!';
 \echo '8 Venues, 12 Events, 20 Participants, 10 Judges, 20 Registrations, 12 Performances, 18 Scores, 8 Awards, 7 Award Winners inserted.';
