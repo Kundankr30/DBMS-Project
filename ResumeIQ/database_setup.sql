@@ -1,0 +1,1 @@
+SELECT role_name FROM roles ORDER BY role_name;
